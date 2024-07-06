@@ -1,0 +1,3 @@
+* Google, Yandex Reverse Image Search
+* Google Street View
+* Exiftool to extract image metadata (e.g. coordinates)
