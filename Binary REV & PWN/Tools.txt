@@ -1,0 +1,2 @@
+Python pwn module for rapid exploit / payload development: https://pypi.org/project/pwntools/
+Metaploit for known exploits / vulnerabilities

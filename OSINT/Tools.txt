@@ -1,3 +1,4 @@
 * Google, Yandex Reverse Image Search
-* Google Street View
+* Google Street View / Google Lens
 * Exiftool to extract image metadata (e.g. coordinates)
+* picarta AI can help narrow down photo locations: https://picarta.ai/
