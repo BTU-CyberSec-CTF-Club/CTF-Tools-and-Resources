@@ -1,2 +1,5 @@
 Python pwn module for rapid exploit / payload development: https://pypi.org/project/pwntools/
 Metaploit for known exploits / vulnerabilities
+
+
+https://github.com/welchbj/ctf/blob/master/docs/injections.md

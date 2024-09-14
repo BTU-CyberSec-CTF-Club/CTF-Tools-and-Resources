@@ -2,3 +2,5 @@
 * Google Street View / Google Lens
 * Exiftool to extract image metadata (e.g. coordinates)
 * picarta AI can help narrow down photo locations: https://picarta.ai/
+
+* Search by Image Addon for Firefox

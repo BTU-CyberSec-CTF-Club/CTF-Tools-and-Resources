@@ -1,0 +1,2 @@
+
+* Trying out various common ciphers and encodings: https://gchq.github.io/CyberChef/
