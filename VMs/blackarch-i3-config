@@ -1,0 +1,341 @@
+##################
+## BASIC CONFIG ##############################################################################
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod1
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+focus_follows_mouse yes
+
+# set default desktop layout (default is tiling); could also be stacking or tabbed
+workspace_layout default
+
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+default_border pixel 1
+default_floating_border normal
+
+# Hide borders
+hide_edge_borders none
+
+# Set inner/outer gaps
+gaps inner 12
+gaps outer -5
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango: Terminus (TTF) bold 10
+
+
+# Enable the setion below to fetch all the colors from Xresources
+#set_from_resource $xforeground foreground
+#set_from_resource $xbackground background
+#set_from_resource $xcursor cursorColor
+#set_from_resource $xcolor0 color0
+#set_from_resource $xcolor8 color8
+#set_from_resource $xcolor1 color1
+#set_from_resource $xcolor9 color9
+#set_from_resource $xcolor2 color2
+#set_from_resource $xcolor10 color10
+#set_from_resource $xcolor3 color3
+#set_from_resource $xcolor11 color11
+#set_from_resource $xcolor4 color4
+#set_from_resource $xcolor12 color12
+#set_from_resource $xcolor5 color5
+#set_from_resource $xcolor13 color13
+#set_from_resource $xcolor6 color6
+#set_from_resource $xcolor14 color14
+#set_from_resource $xcolor7 color7
+#set_from_resource $xcolor15 color15
+
+# Manual color settings.
+# red theme
+#set $xforeground #c5c8c6
+#set $xbackground #1d1f21
+#set $xcursor #c5c8c6
+#set $xcolor0 #282a2e
+#set $xcolor8 #373b41
+#set $xcolor1 #a54242
+#set $xcolor9 #cc6666
+#set $xcolor2 #8c9440
+#set $xcolor10 #b5bd68
+#set $xcolor3 #de935f
+#set $xcolor11 #f0c674
+#set $xcolor4 #5f819d
+#set $xcolor12 #81a2be
+#set $xcolor5 #85678f
+#set $xcolor13 #b294bb
+#set $xcolor6 #5e8d87
+#set $xcolor14 #8abeb7
+#set $xcolor7 #707880
+#set $xcolor15 #c5c8c6
+# blue theme
+set $xforeground #c5c8c6
+set $xbackground #1d1f21
+set $xcursor #c5c8c6
+set $xcolor0 #0d3264
+set $xcolor8 #373b41
+set $xcolor1 #467ecb
+set $xcolor9 #cc6666
+set $xcolor2 #8c9440
+set $xcolor10 #b5bd68
+set $xcolor3 #de935f
+set $xcolor11 #f0c674
+set $xcolor4 #5f819d
+set $xcolor12 #81a2be
+set $xcolor5 #85678f
+set $xcolor13 #b294bb
+set $xcolor6 #6298e0
+set $xcolor14 #8abeb7
+set $xcolor7 #707880
+set $xcolor15 #c5c8c6
+
+# Colors
+# Class                 border          backgr      text            indic
+client.focused          $xcolor6       $xcolor1     $xbackground   $xcolor7
+client.focused_inactive $xcolor6       $xcolor0     $xcolor14
+client.unfocused        $xcolor6       $xcolor0     $xcolor14
+client.urgent           $xbackground   $xcolor9     $xbackground
+client.placeholder      $xcolor7       $xcolor7     $xcolor14
+
+############
+## i3 BAR ####################################################################################
+bar {
+    status_command i3status
+    mode dock
+    position top
+    strip_workspace_numbers yes
+    font pango: Terminus (TTF) medium 10
+    separator_symbol ")("
+
+    colors {
+        #Where      #Color
+        background  $xbackground
+        statusline  $xforeground
+
+        #Where              #Border         #Background     #Text
+        focused_workspace   $xbackground    $xcolor1        $xbackground
+        #urgent_workspace    $xbackground    $xcolor9        $xbackground
+        urgent_workspace    $xbackground    $xcolor1        $xbackground
+        inactive_workspace  $xbackground    $xcolor0        $xforeground
+    }
+}
+
+# Toggle bar
+bindsym $mod+m bar mode toggle
+
+
+
+##########################
+## WORKSPACE MANAGEMENT ######################################################################
+
+# Workspace Names
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+o workspace $wstv
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+# Move focused container to workspace
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+o move container to workspace $wstv
+
+# Move to workspace with focused container
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+o move container to workspace $wstv; workspace $wstv
+
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+
+
+#######################
+## WINDOW MANAGEMENT #########################################################################
+
+# change borders
+#bindsym $mod+u border none
+bindsym $mod+y border pixel 1
+# wide border for resizing:
+bindsym $mod+t border pixel 7
+bindsym $mod+n border normal
+
+# change focus
+bindsym $mod+Left  focus left
+bindsym $mod+h     focus left
+bindsym $mod+Down  focus down
+bindsym $mod+j     focus down
+bindsym $mod+Up    focus up
+bindsym $mod+k     focus up
+bindsym $mod+l     focus right
+bindsym $mod+Right focus right
+
+bindsym $mod+a focus parent
+bindsym $mod+x focus child
+
+# move focused window
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+h     move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+j     move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l     move right
+bindsym $mod+Shift+Right move right
+
+
+# Resize window (you can also use the mouse for that, easiest with mod+t borders)
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+		# Downwards and rightwards enlarges, upwards and leftwards shrinks
+        bindsym Left        resize shrink width 5 px or 5 ppt
+        bindsym h           resize shrink width 5 px or 5 ppt
+        bindsym Shift+Left  resize shrink width 1 px or 1 ppt
+        bindsym Shift+h     resize shrink width 1 px or 1 ppt
+        bindsym $mod+Shift+Left  resize shrink width 25 px or 25 ppt
+        bindsym $mod+Shift+h     resize shrink width 25 px or 25 ppt
+
+        bindsym Down        resize grow height 5 px or 5 ppt
+        bindsym j           resize grow height 5 px or 5 ppt
+        bindsym Shift+Down  resize grow height 1 px or 1 ppt
+        bindsym Shift+j     resize grow height 1 px or 1 ppt
+        bindsym $mod+Shift+Down  resize grow height 25 px or 25 ppt
+        bindsym $mod+Shift+j     resize grow height 25 px or 25 ppt
+
+        bindsym Up          resize shrink height 5 px or 5 ppt
+        bindsym k           resize shrink height 5 px or 5 ppt
+        bindsym Shift+Up    resize shrink height 1 px or 1 ppt
+        bindsym Shift+k     resize shrink height 1 px or 1 ppt
+        bindsym $mod+Shift+Up    resize shrink height 25 px or 25 ppt
+        bindsym $mod+Shift+k     resize shrink height 25 px or 25 ppt
+
+        bindsym Right       resize grow width 5 px or 5 ppt
+        bindsym l           resize grow width 5 px or 5 ppt
+        bindsym Shift+Right resize grow width 1 px or 1 ppt
+        bindsym Shift+l     resize grow width 1 px or 1 ppt
+        bindsym $mod+Shift+Right resize grow width 25 px or 25 ppt
+        bindsym $mod+Shift+l     resize grow width 25 px or 25 ppt
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+# toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# split orientation
+bindsym $mod+b split h; exec --no-startup-id notify-send 'tile horizontally'
+bindsym $mod+v split v; exec --no-startup-id notify-send 'tile vertically'
+bindsym $mod+q split toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+bindsym $mod+minus scratchpad show
+
+
+# Floating dialogs
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+
+###############
+## SHORTCUTS ###############################################################
+
+# Basics: start terminal, kill focused window, dmenu, zmenu, toggle i3 bar
+bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+q kill
+#
+# start dmenu (a program launcher)
+bindsym $modkey+d exec --no-startup-id rofi -show run
+# bindsym $modkey+d exec --no-startup-id dmenu_run
+
+
+# Reload configuration file or entire i3 session inplace (or leave X altogether)
+bindsym $mod+Shift+r reload
+
+
+# Set shut down, restart and locking features
+set $mode_system "(l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown"
+set $Locker i3lock -d -c $black0 -f
+bindsym $mod+0 mode $mode_system
+mode $mode_system {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+
+# Start Applications
+bindsym $mod+F2 exec firefox
+bindsym $mod+shift+F2 exec firefox --private-window
+bindsym $mod+F3 exec pcmanfm
