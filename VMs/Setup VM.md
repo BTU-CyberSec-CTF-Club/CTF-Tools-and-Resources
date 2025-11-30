@@ -62,6 +62,7 @@
       /root/<foldername>.
     - Once you start the machine, your folders should automatically show up in the mount
       path you specified!
+* Assign more resources to the machine (RAM, CPU, ...)
 
 ### Basic System Configuration
 
@@ -129,9 +130,29 @@
       annoying...). See https://bbs.archlinux.org/viewtopic.php?id=285066 if you want to
       read more pointers on how to solve the dark mode problem.
 
-* You may face trouble upgrading your black arch system (pacman -Syu) due to dependency
-  conflicts. Sadly, this is a direct consequence of using the ova or iso images. To solve this,
-  you would need to instead setup a fresh arch system with blackarch repos on top of it. I
-  might adjust my personal arch setup scripts to do this one day - for now, this guide
-  should suffice to get you up and running on most tools. scripts to do this one day - for
-  now, this guide should suffice to get you up and running on most tools.
+* You may face trouble upgrading your black arch system (pacman -Syu) and installing
+  up-to-date software due to dependency conflicts. Sadly, this is a direct consequence of
+  using the ova or iso images. This wouldn't occur if you had setup a fresh arch
+  system with blackarch repos on top of it. The last two year's dependency conflicts have
+  to be solved before you can actually install up-to-date packages. These are the steps I used to solve the dependency errors:
+    * `pacman -R mobsf tls-attacker rabbitmq scannerl ftpscout pmacct smali backdoor-apk thefatrat python-tensorflow python-gast03 eyeballer python-keras brut3k1t python-mypy python-uvicorn theharvester id-entify rapidscan sn1per python-utidylib powerfuzzer ldapdomaindump aclpwn activedirectoryenum bloodhound-python certipy crackmapexec`
+    * `pacman -S jdk-openjdk jdk17-openjdk jdk11-openjdk erlang-eldap python-gast nodejs` (answer yes to all)
+    * `pacman -Syu --noconfirm` (this will take quite a while...)
+    * Edit `/etc/locale.gen` and comment-out all lines except those for `en_US.UTF-8`
+    * Run `locale-gen`
+
+* Some additional software you might want to install (filemanager, dmenu launcher, ...):
+    `pacman -Sy nvim pcmanfm dmenu man`
+
+* For vim users: It's recommended to use nvim instead of vim (one example benefit is direct clipboard
+  access through the + register). Set an according alias in your .bashrc and .bash_profile:
+    `alias vim="nvim"`
+
+
+* TODO: Does GPU work (e.g. hashcat)?
+
+* TODO: The workaround of upgrading the ova image seems to work initially, but then there
+  are issues with the fullscreen view of the VM. Worse yet, the process costs lots of time
+  and LOTS of resources (my Blackarch VM Data folder has reached 260GB by now...). Should
+  create a blackarch install script based on my normal archlinux netinstall script -> much
+  more minimal, won't have all the tools installed when you don't even need them
