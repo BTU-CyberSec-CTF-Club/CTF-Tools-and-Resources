@@ -2,3 +2,8 @@
 * Trying out various common ciphers and encodings: https://gchq.github.io/CyberChef/
 
 * Aperisolve
+* steghide for steganography (also try without password!)
+
+* https://github.com/RsaCtfTool/RsaCtfTool  -- tries to decrypt data from weak public
+  keys to receive the corresponding private key. Includes various RSA attacks
+	- https://platypwnies.de/writeups/2020/htb-uni-quals/crypto/weak_rsa/

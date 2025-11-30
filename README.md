@@ -6,8 +6,7 @@ This repo helpful guides, tools, and cheat-sheets that can be of help in solving
 
 ## Structure
 
-TBD
-
 
 
 https://ctf101.org/
+https://github.com/lennmuck/ctf_cheat_sheet_01?tab=readme-ov-file#rev
