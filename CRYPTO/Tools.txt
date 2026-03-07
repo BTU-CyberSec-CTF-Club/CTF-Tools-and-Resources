@@ -7,3 +7,23 @@
 * https://github.com/RsaCtfTool/RsaCtfTool  -- tries to decrypt data from weak public
   keys to receive the corresponding private key. Includes various RSA attacks
 	- https://platypwnies.de/writeups/2020/htb-uni-quals/crypto/weak_rsa/
+
+https://crackstation.net/
+	- An online lookup table for unsalted hash values
+
+
+## To Crack Wireless Traffic:
+
+* Make sure you have an unused wireless interface available (if using a virtual machine, your best bet is to pass through a USB network card)
+* View available interfaces with `ip addr`
+
+* First, capture traffic to attack
+	- Might want to use `sudo airmon-ng check kill <interface>` first to kill meddling processes
+	- Use `sudo airmon-ng start <interface>` to set it to monitor mode
+	- Use "sudo airodump-ng <interface>" - note that this only scans on the 2.4GHz band. For 5Ghz, use `--band a`
+	- You should be able to discover network traffic this way. To test, connect your
+	  computer (with the default network card) to the wireless network you want to capture
+	  and see if there are probes fitting its name. In this stage you can also see the
+	  BSSID, if your computer is associated with that network.
+	- To capture packets: `sudo airodump-ng --band a -w --essid <networkname> <interface>`
+	- To crack the password: `sudo aircrack-ng -e "<essid>" -w /usr/share/wordlists/passwords/rockyou.txt *` while in the dir with the captures
