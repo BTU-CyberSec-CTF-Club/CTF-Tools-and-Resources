@@ -3,3 +3,6 @@ Metaploit for known exploits / vulnerabilities
 
 
 https://github.com/welchbj/ctf/blob/master/docs/injections.md
+
+
+checksec -- find out what security options are enabled in a binary
