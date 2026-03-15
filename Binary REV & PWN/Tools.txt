@@ -1,8 +1,13 @@
 Python pwn module for rapid exploit / payload development: https://pypi.org/project/pwntools/
-Metaploit for known exploits / vulnerabilities
+	- Includes interaction with local process or remote targets
+	- Includes `cyclic` patterns to automatically discover offset (`cyclic_find`) for
+	  return-oriented-programming (i.e. overriding return pointer in buffer overflows)
 
+Metaploit for known exploits / vulnerabilities
 
 https://github.com/welchbj/ctf/blob/master/docs/injections.md
 
-
 checksec -- find out what security options are enabled in a binary
+
+Find out locations of symbols / functions with "readelf -s" or "objdump -t" (first column
+gives the address)
