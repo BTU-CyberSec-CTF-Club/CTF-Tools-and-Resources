@@ -1,85 +1,125 @@
 from pwn import *
 
 
-def send_print(val, raw=False):
+#############
+## LIBRARY ##
+##############################################################################################
+class TargetWrapper:
     """
-    Sends the given value / string to the target (and prints the data to your console)
-
-    Args:
-        val: The value or string to send
-        raw: If True, data will be sent as is (as bytes). Otherwise, it is assumed to be a
-             string that will be encoded.
+    Wraps a pwntools tube (process, remote, ...) to perform more convenient functions on them, e.g. print all sent and received data.
     """
-    if raw:
-        target.send(val)
-        print(val.decode("utf-8", errors="replace"), end="")
-    else:
-        target.send(str(val).encode())
-        print(val, end="")
+
+    def __init__(self, target):
+        """
+        Args:
+            target: A pwntools tube (e.g. process, remote).
+        """
+        self.target = target
+
+    def send(self, val, raw=False, print_data=True):
+        """
+        Sends data to the target and optionally prints it.
+
+        Args:
+            val: The data to send. If raw is False, it is converted to str and encoded.
+            raw: If True, val must be bytes and is sent unchanged.
+            print_data: If True, the data sent is printed to stdout.
+        """
+        if raw:
+            data = val
+            if print_data:
+                print(data.decode("utf-8", errors="replace"), end="")
+        else:
+            data = str(val).encode()
+            if print_data:
+                print(val, end="")
+
+        self.target.send(data)
+
+    def sendline(self, val, raw=False, print_data=True):
+        """
+        Sends data followed by a newline and optionally prints it.
+
+        Args:
+            val: The data to send. If raw is False, it is converted to str and encoded.
+            raw: If True, val must be bytes and is sent unchanged.
+            print_data: If True, the data sent is printed to stdout (with a trailing newline).
+        """
+        if raw:
+            data = val
+            if print_data:
+                print(data.decode("utf-8", errors="replace"))
+        else:
+            data = str(val).encode()
+            if print_data:
+                print(val)
+
+        self.target.sendline(data)
+
+    def recvuntil(self, val, raw=False, print_data=True):
+        """
+        Receives data until the given delimiter is found, optionally prints it.
+
+        Args:
+            val: The delimiter to wait for. If raw is False, it is converted to str and encoded.
+            raw: If True, val must be bytes.
+            print_data: If True, the received data is printed to stdout.
+
+        Returns:
+            The received data as a string (decoded).
+        """
+        if raw:
+            delim = val
+        else:
+            delim = str(val).encode()
+
+        resp = self.target.recvuntil(delim)
+        resp_str = resp.decode()
+
+        if print_data:
+            print(resp_str, end="")
+
+        return resp_str
+
+    def recvline(self, print_data=True):
+        """
+        Receives a single line and optionally prints it.
+
+        Args:
+            print_data: If True, the received line is printed to stdout.
+
+        Returns:
+            The received line as a string (decoded).
+        """
+        resp = self.target.recvline()
+        resp_str = resp.decode()
+
+        if print_data:
+            print(resp_str, end="")
+
+        return resp_str
 
 
-def sendline_print(val, raw=False):
-    """
-    Sends the given value / string to the target and finishes the current line (and prints
-    the data to your console)
-
-    Args:
-        val: The value or string to send
-        raw: If True, data will be sent as is (should be given as bytes). Otherwise, it
-             will be taken as a string (or converted to one) and sent to the server that way.
-    """
-    if raw:
-        target.sendline(val)
-        print(val.decode("utf-8", errors="replace"))
-    else:
-        target.sendline(str(val).encode())
-        print(val)
-
-
-def recvuntil_print(val, raw=False):
-    """
-    Receive data from the target until the specified value / string is found in the data
-    stream.
-
-    Example: Entering the val "Password? " will stop right after the server sends "What is
-    the Password? " to you. That way you can can enter a password with send_print or
-    sendline_print afterwards.
-
-    Args:
-        val: The value or string to look for
-        raw: If True, data will be sent as is (should be given as bytes). Otherwise, it
-             will be taken as a string (or converted to one) and sent to the server that way.
-
-    Returns: The data (string) you received
-    """
-    if raw:
-        resp = target.recvuntil(val)
-    else:
-        resp = target.recvuntil(str(val).encode())
-    print(resp.decode(), end="")
-    return resp.decode()
-
-
-def recvline_print():
-    """
-    Receives a single line from the target and prints it to the console.
-
-    Returns: The data (string) you received
-    """
-    resp = target.recvline()
-    print(resp.decode(), end="")
-    return resp.decode()
-
-
+###############
+## YOUR CODE ##
+##############################################################################################
 ## PWN THE SERVICE
 # target = process(argv=["python", "redacted.py"])
 target = remote("24.199.110.35", 43298)  # IP and Port pair
 
+io = TargetWrapper(target)  # wrap the connection
+
 # TODO do whatever you need to do here
+# Example:
+# io.recvuntil("Username: ")
+# io.sendline("admin")
+# io.recvline(print_data=False)   # discard a line without printing
+# io.recvuntil("Password: ", print_data=True)
+# io.sendline("p4ssw0rd")
 
 # Done with your script. Keep receiving the rest of the data from the server
 try:
     while True:
-        recvline_print()
+        io.recvline()
 except EOFError:
     exit()
