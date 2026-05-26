@@ -1,3 +1,5 @@
+#!/bin/python3
+# pwn_template.py Version 1.3 (May 2026)
 from pwn import *
 
 
