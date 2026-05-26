@@ -4,3 +4,5 @@
 * picarta AI can help narrow down photo locations: https://picarta.ai/
 
 * Search by Image Addon for Firefox
+
+* https://geopeeker.com - View a website from different countries
