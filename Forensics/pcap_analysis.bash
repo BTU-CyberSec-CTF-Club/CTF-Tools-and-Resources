@@ -56,6 +56,21 @@ $1 ~ /^[0-9]+$/ && $2!="" && $3!="" && $4!="" && $5!="" {
     cat
 ) | column -t -s $'\t'
 
+header "UDP Streams Overview"
+tshark -r "$FILE" -T fields -e udp.stream -e ip.src -e udp.srcport -e ip.dst -e udp.dstport |
+    awk 'BEGIN {FS="\t"; OFS="\t"}
+$1 ~ /^[0-9]+$/ && $2!="" && $3!="" && $4!="" && $5!="" {
+    key = $1
+    if (!seen[key]++) {
+        a = $2":"$3; b = $4":"$5
+        if (a < b) print key, a, "<->", b
+        else       print key, b, "<->", a
+    }
+}' | (
+    echo -e "Stream\tSource\t\tDest"
+    cat
+) | column -t -s $'\t'
+
 header "HTTP Requests Overview"
 # (
 # echo -e "Method\tStatus\tURI\tSrc_IP\tDst_IP"
